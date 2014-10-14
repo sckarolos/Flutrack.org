@@ -71,11 +71,6 @@ do {
   $http_code = $info['http_code'];
   curl_close($ch);
 
-  //TODO
-  // $http_code is int, so IFs ($http_code == 400) 
-  // we switch from JSON payload error handling to HTTP Return Headers.
-
-
   /* TO INCLUDE
   if ($http_code == 400){
   error or limit
@@ -101,12 +96,9 @@ do {
 
   END TO INCLUDE*/
 
-  // location bad keywords
+  // location bad keywords example
   $pattern = '/(hell|heaven|paradise|home|road|mother|fairytail|universe|mars|jupiter|moon|planet|galaxy|house|mom|mercury|venus|saturn|uranus|neptune|pluto|sun|solar|asteroid|comet)/i';
   $aggrav_pattern = '/(getting worse|get worse|weaker|deterioration|deteriorate|worsening|degenerate|regress|exacerbate|relapse|intensify|compound|Become aggravated|get into a decline|go to pot)/i';
-
-
-
 
   $json = json_decode($data, true);
 
@@ -145,9 +137,7 @@ do {
     echo '</pre>';
 
     //process them
-    
- 
-    
+   
     foreach ($json['statuses'] as $tweet) 
     {
       //for ($i=0; $i<$counteras; $i++){    
@@ -160,7 +150,7 @@ do {
         $tweet_text = $tweet['text'];
         $tweet_ID = $tweet['id_str'];
         $twitter_account_name = $tweet['user']['screen_name'];
-        $twitter_account_ID = $tweet['user']['id_str']; //id_string giati polu megala noumera
+        $twitter_account_ID = $tweet['user']['id_str']; //id_string because of too big numberst
         $stripped_tweet = preg_replace('/(#|@)\S+|(RT:)|(RT)/', '', $tweet_text); // remove hashtags
         $stripped_tweet = preg_replace('#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#', '', $stripped_tweet);
         //WORKING //   $stripped_tweet = preg_replace('/(RT)|(^|\s)@\S+/', '', $tweet_text); // remove @mentions AND "RT"
@@ -181,7 +171,6 @@ do {
           $geoless_tweet_location = $tweet['user']['location'];
         }
 
-        
         echo "</br>";
         echo " User:  $twitter_account_name (Me ID:$twitter_account_ID) said : $tweet_text </br> Stis: $datetime";
         
@@ -249,8 +238,8 @@ do {
     print_r($json);
     echo '</pre>';
     
-    $we_have_errors = TRUE; 									//Apopriate actions if error code is present
-    break;  													//  (skipping storing the cache refresh url)
+    $we_have_errors = TRUE; 		//Apopriate actions if error code is present
+    break;  			        //  (skipping storing the cache refresh url)
     }
 } while ($API_query!=NULL);
 
