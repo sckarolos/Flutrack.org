@@ -41,8 +41,6 @@ $guard=0;
 
 do {
 
-
-
   echo "api_url:$api_URL<br />";
   echo "api_query:$API_query<br />";
 
